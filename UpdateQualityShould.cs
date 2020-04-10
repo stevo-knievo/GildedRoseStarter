@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using GildedRoseKata.Items;
 using Xunit;
@@ -50,7 +50,7 @@ namespace GildedRoseKata
 
 
         [Fact]
-        public void QualityValueShouldNeverBeZero()
+        public void QualityValueShouldNeverBelowZero()
         {
             var item = UpdateQuality(new StandardItem {Name = "Foo", SellIn = DefaultSellIn, Quality = 0});
             Assert.Equal(0, item.Quality);
