@@ -35,5 +35,14 @@ namespace GildedRoseKata
             gildedRose.UpdateQuality();
             Assert.Equal(8, items.First().Quality);
         }
+
+        [Fact]
+        public void QualityValueShouldDecreaseTwiceAsFastIfSellInIsPasted()
+        {
+            var items = new List<Item> {new Item {Name = "Foo", SellIn = 0, Quality = 10}};
+            var gildedRose = new GildedRose(items);
+            gildedRose.UpdateQuality();
+            Assert.Equal(8, items.First().Quality);
+        }
     }
 }
