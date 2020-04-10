@@ -9,7 +9,10 @@ namespace GildedRoseKata
 {
     public class UpdateQualityShould
     {
-        private static IEnumerable<Item> UpdateQuality(string name = "Sulfuras, Hand of Ragnaros", int sellIn = 0, int quality = 80)
+        private const int DefaultSellIn = 10;
+        private const int DefaultQuality = 20;
+
+        private static IEnumerable<Item> UpdateQuality(string name = "Foo", int sellIn = DefaultSellIn, int quality = DefaultQuality)
         {
             var items = new List<Item> {new Item {Name = name, SellIn = sellIn, Quality = quality}};
             var gildedRose = new GildedRose(items);
@@ -21,31 +24,31 @@ namespace GildedRoseKata
         [Fact]
         public void DoNothingGivenSulfuras()
         {
-            var items = UpdateQuality();
-            Assert.Equal(80, items.First().Quality);
+            var items = UpdateQuality(name: "Sulfuras, Hand of Ragnaros");
+            Assert.Equal(DefaultQuality, items.First().Quality);
         }
 
         [Fact]
         public void AllItemsDecreaseSellInValue()
         {
-            var items = UpdateQuality("Foo", 10, 9);
+            var items = UpdateQuality();
             Assert.Equal(9, items.First().SellIn);
         }
 
         [Fact]
         public void AllItemsDecreaseQualityValue()
         {
-            var items = UpdateQuality("Foo", 10, 9);
-            Assert.Equal(8, items.First().Quality);
+            var items = UpdateQuality();
+            Assert.Equal(DefaultQuality - 1, items.First().Quality);
         }
 
         [Fact]
         public void QualityValueShouldDecreaseTwiceAsFastIfSellInIsPasted()
         {
-            var items = UpdateQuality("Foo", 0, 9);
-            Assert.Equal(7, items.First().Quality);
+            var items = UpdateQuality(sellIn: 0);
+            Assert.Equal(DefaultQuality - 2, items.First().Quality);
         }
-        
+
         [Fact]
         public void QualityValueShouldNeverBeZero()
         {
