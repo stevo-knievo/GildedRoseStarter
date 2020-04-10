@@ -92,5 +92,12 @@ namespace GildedRoseKata
             var items = UpdateQuality(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5);
             Assert.Equal(DefaultQuality + 3, items.First().Quality);
         }
+
+        [Fact]
+        public void QualityOfBackstagePassesAfterTheConcertDate()
+        {
+            var items = UpdateQuality(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 0);
+            Assert.Equal(0, items.First().Quality);
+        }
     }
 }
