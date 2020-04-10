@@ -11,7 +11,7 @@ namespace GildedRoseKata
         {
             Console.WriteLine("OMGHAI!");
 
-            IList<IItem> Items = new List<IItem>
+            IList<DefaultItem> Items = new List<DefaultItem>
             {
                 new StandardItem {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20},
                 new IncreaseItem {Name = "Aged Brie", SellIn = 2, Quality = 0},

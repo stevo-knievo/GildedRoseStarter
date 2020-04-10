@@ -1,11 +1,10 @@
-using System.Diagnostics;
-
 namespace GildedRoseKata.Items
 {
-    public class LegendaryItem : Item, IItem
+    public class LegendaryItem : DefaultItem
     {
-        public void Process()
+        public override void Process()
         {
+            // noting to do here.
         }
     }
 }

@@ -5,9 +5,9 @@ namespace GildedRoseKata
 {
     public class GildedRose
     {
-        IList<IItem> Items;
+        IList<DefaultItem> Items;
 
-        public GildedRose(IList<IItem> items)
+        public GildedRose(IList<DefaultItem> items)
         {
             Items = items;
         }

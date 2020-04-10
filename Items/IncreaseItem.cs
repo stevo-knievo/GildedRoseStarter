@@ -1,25 +1,17 @@
 namespace GildedRoseKata.Items
 {
-    public class IncreaseItem : Item, IItem
+    public class IncreaseItem : DefaultItem
     {
-        public void Process()
+        public override void Process()
         {
-            if (Quality < 50)
+            SetQuality(1);
+
+            if (IsExpired())
             {
-                Quality += 1;
+                SetQuality(1);
             }
 
-            if (SellIn <= 0)
-            {
-                Quality += 1;
-            }
-
-            if (Quality > 50)
-            {
-                Quality = 50;
-            }
-
-            SellIn -= 1;
+            ProcessSellIn();
         }
     }
 }

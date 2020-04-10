@@ -1,27 +1,17 @@
-using System;
-
 namespace GildedRoseKata.Items
 {
-    public class StandardItem : Item, IItem
+    public class StandardItem : DefaultItem
     {
-        public void Process()
+        public override void Process()
         {
-            if (Quality > 0)
-            {
-                Quality -= 1;
+            SetQuality(-1);
 
-                if (SellIn <= 0)
-                {
-                    Quality -= 1;
-                }
+            if (IsExpired())
+            {
+                SetQuality(-1);
             }
 
-            if (Quality < 0)
-            {
-                Quality = 0;
-            }
-
-            SellIn -= 1;
+            ProcessSellIn();
         }
     }
 }

@@ -1,33 +1,43 @@
 namespace GildedRoseKata.Items
 {
-    public class ConcertItems : Item, IItem
+    public class ConcertItems : DefaultItem
     {
-        public void Process()
+        public override void Process()
         {
-            if (SellIn <= 10 && SellIn > 5)
+            if (IsPreSale())
             {
-                Quality += 2;
+                SetQuality(2);
             }
-            else if (SellIn <= 5)
+            else if (IsLastMinuteSale())
             {
-                Quality += 3;
+                SetQuality(3);
             }
             else
             {
-                Quality += 1;
+                SetQuality(1);
             }
 
-            if (Quality > 50)
+            if (IsExpired())
             {
-                Quality = 50;
+                SetToSoldOut();
             }
 
-            if (SellIn <= 0)
-            {
-                Quality = 0;
-            }
+            ProcessSellIn();
+        }
 
-            SellIn -= 1;
+        private bool IsLastMinuteSale()
+        {
+            return SellIn <= 5;
+        }
+
+        private bool IsPreSale()
+        {
+            return SellIn <= 10 && SellIn > 5;
+        }
+
+        private void SetToSoldOut()
+        {
+            Quality = 0;
         }
     }
 }
