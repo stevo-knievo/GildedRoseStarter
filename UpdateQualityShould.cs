@@ -10,7 +10,7 @@ namespace GildedRoseKata
         private const int DefaultSellIn = 10;
         private const int DefaultQuality = 20;
 
-        private IItem UpdateQuality(IItem item)
+        private static IItem UpdateQuality(IItem item)
         {
             var items = new List<IItem> {item};
             var gildedRose = new GildedRose(items);
