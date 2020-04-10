@@ -55,12 +55,19 @@ namespace GildedRoseKata
             var items = UpdateQuality(quality: 0);
             Assert.Equal(0, items.First().Quality);
         }
-        
+
         [Fact]
         public void IncreasesQualityGivenAgedBrie()
         {
             var items = UpdateQuality(name: "Aged Brie");
             Assert.Equal(DefaultQuality + 1, items.First().Quality);
+        }
+
+        [Fact]
+        public void QualityShouldBeNeverMoreThanFifty()
+        {
+            var items = UpdateQuality(name: "Aged Brie", quality: 50);
+            Assert.Equal(50, items.First().Quality);
         }
     }
 }
