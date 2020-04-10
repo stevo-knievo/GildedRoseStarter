@@ -45,5 +45,12 @@ namespace GildedRoseKata
             var items = UpdateQuality("Foo", 0, 9);
             Assert.Equal(7, items.First().Quality);
         }
+        
+        [Fact]
+        public void QualityValueShouldNeverBeZero()
+        {
+            var items = UpdateQuality(quality: 0);
+            Assert.Equal(0, items.First().Quality);
+        }
     }
 }
