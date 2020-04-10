@@ -9,40 +9,41 @@ namespace GildedRoseKata
 {
     public class UpdateQualityShould
     {
+        private List<Item> UpdateQuality(string name = "Sulfuras, Hand of Ragnaros", int sellIn = 0, int quality = 80)
+        {
+            var items = new List<Item> {new Item {Name = name, SellIn = sellIn, Quality = quality}};
+            var gildedRose = new GildedRose(items);
+            gildedRose.UpdateQuality();
+
+            return items;
+        }
+
         [Fact]
         public void DoNothingGivenSulfuras()
         {
-            var items = new List<Item> {new Item {Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80}};
-            var gildedRose = new GildedRose(items);
-            gildedRose.UpdateQuality();
+            var items = UpdateQuality();
             Assert.Equal(80, items.First().Quality);
         }
 
         [Fact]
         public void AllItemsDecreaseSellInValue()
         {
-            var items = new List<Item> {new Item {Name = "Foo", SellIn = 10, Quality = 9}};
-            var gildedRose = new GildedRose(items);
-            gildedRose.UpdateQuality();
+            var items = UpdateQuality("Foo", 10, 9);
             Assert.Equal(9, items.First().SellIn);
         }
 
         [Fact]
         public void AllItemsDecreaseQualityValue()
         {
-            var items = new List<Item> {new Item {Name = "Foo", SellIn = 10, Quality = 9}};
-            var gildedRose = new GildedRose(items);
-            gildedRose.UpdateQuality();
+            var items = UpdateQuality("Foo", 10, 9);
             Assert.Equal(8, items.First().Quality);
         }
 
         [Fact]
         public void QualityValueShouldDecreaseTwiceAsFastIfSellInIsPasted()
         {
-            var items = new List<Item> {new Item {Name = "Foo", SellIn = 0, Quality = 10}};
-            var gildedRose = new GildedRose(items);
-            gildedRose.UpdateQuality();
-            Assert.Equal(8, items.First().Quality);
+            var items = UpdateQuality("Foo", 0, 9);
+            Assert.Equal(7, items.First().Quality);
         }
     }
 }
