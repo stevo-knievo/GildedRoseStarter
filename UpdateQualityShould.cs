@@ -62,6 +62,7 @@ namespace GildedRoseKata
         {
             var item = UpdateQuality(new IncreaseItem {Name = "Aged Brie", SellIn = DefaultSellIn, Quality = DefaultQuality});
             Assert.Equal(DefaultQuality + 1, item.Quality);
+            Assert.Equal(DefaultSellIn - 1, item.SellIn);
         }
 
 
@@ -70,6 +71,7 @@ namespace GildedRoseKata
         {
             var item = UpdateQuality(new IncreaseItem {Name = "Aged Brie", SellIn = DefaultSellIn, Quality = 50});
             Assert.Equal(50, item.Quality);
+            Assert.Equal(DefaultSellIn - 1, item.SellIn);
         }
 
 
@@ -78,6 +80,7 @@ namespace GildedRoseKata
         {
             var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 11, Quality = DefaultQuality});
             Assert.Equal(DefaultQuality + 1, item.Quality);
+            Assert.Equal(10, item.SellIn);
         }
 
 
@@ -86,6 +89,7 @@ namespace GildedRoseKata
         {
             var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = DefaultSellIn, Quality = DefaultQuality});
             Assert.Equal(DefaultQuality + 2, item.Quality);
+            Assert.Equal(DefaultSellIn - 1, item.SellIn);
         }
 
         [Fact]
@@ -93,6 +97,7 @@ namespace GildedRoseKata
         {
             var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = DefaultSellIn, Quality = 49});
             Assert.Equal(50, item.Quality);
+            Assert.Equal(DefaultSellIn - 1, item.SellIn);
         }
 
         [Fact]
@@ -100,6 +105,7 @@ namespace GildedRoseKata
         {
             var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = DefaultQuality});
             Assert.Equal(DefaultQuality + 3, item.Quality);
+            Assert.Equal(4, item.SellIn);
         }
 
         [Fact]
@@ -107,6 +113,7 @@ namespace GildedRoseKata
         {
             var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 49});
             Assert.Equal(50, item.Quality);
+            Assert.Equal(4, item.SellIn);
         }
 
         [Fact]
@@ -114,6 +121,7 @@ namespace GildedRoseKata
         {
             var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = DefaultQuality});
             Assert.Equal(0, item.Quality);
+            Assert.Equal(-1, item.SellIn);
         }
     }
 }
