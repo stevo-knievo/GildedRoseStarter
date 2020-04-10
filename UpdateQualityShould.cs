@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GildedRoseKata.Items;
 using Xunit;
 
 namespace GildedRoseKata
@@ -9,9 +10,9 @@ namespace GildedRoseKata
         private const int DefaultSellIn = 10;
         private const int DefaultQuality = 20;
 
-        private static Item UpdateQuality(string name = "Foo", int sellIn = DefaultSellIn, int quality = DefaultQuality)
+        private IItem UpdateQuality(IItem item)
         {
-            var items = new List<Item> {new Item {Name = name, SellIn = sellIn, Quality = quality}};
+            var items = new List<IItem> {item};
             var gildedRose = new GildedRose(items);
             gildedRose.UpdateQuality();
 
@@ -21,7 +22,7 @@ namespace GildedRoseKata
         [Fact]
         public void DoNothingGivenSulfuras()
         {
-            var item = UpdateQuality(name: "Sulfuras, Hand of Ragnaros");
+            var item = UpdateQuality(new LegendaryItem() {Name = "Sulfuras, Hand of Ragnaros", SellIn = DefaultSellIn, Quality = DefaultQuality});
             Assert.Equal(DefaultSellIn, item.SellIn);
             Assert.Equal(DefaultQuality, item.Quality);
         }
@@ -29,70 +30,75 @@ namespace GildedRoseKata
         [Fact]
         public void AllItemsDecreaseSellInValue()
         {
-            var item = UpdateQuality();
+            var item = UpdateQuality(new StandardItem {Name = "Foo", SellIn = DefaultSellIn, Quality = DefaultQuality});
             Assert.Equal(9, item.SellIn);
         }
 
         [Fact]
         public void AllItemsDecreaseQualityValue()
         {
-            var item = UpdateQuality();
+            var item = UpdateQuality(new StandardItem {Name = "Foo", SellIn = DefaultSellIn, Quality = DefaultQuality});
             Assert.Equal(DefaultQuality - 1, item.Quality);
         }
 
         [Fact]
         public void QualityValueShouldDecreaseTwiceAsFastIfSellInIsPasted()
         {
-            var item = UpdateQuality(sellIn: 0);
+            var item = UpdateQuality(new StandardItem {Name = "Foo", SellIn = 0, Quality = DefaultQuality});
             Assert.Equal(DefaultQuality - 2, item.Quality);
         }
+
 
         [Fact]
         public void QualityValueShouldNeverBeZero()
         {
-            var item = UpdateQuality(quality: 0);
+            var item = UpdateQuality(new StandardItem {Name = "Foo", SellIn = DefaultSellIn, Quality = 0});
             Assert.Equal(0, item.Quality);
         }
+
 
         [Fact]
         public void IncreasesQualityGivenAgedBrie()
         {
-            var item = UpdateQuality("Aged Brie");
+            var item = UpdateQuality(new IncreaseItem {Name = "Aged Brie", SellIn = DefaultSellIn, Quality = DefaultQuality});
             Assert.Equal(DefaultQuality + 1, item.Quality);
         }
+
 
         [Fact]
         public void QualityShouldBeNeverMoreThanFifty()
         {
-            var item = UpdateQuality("Aged Brie", quality: 50);
+            var item = UpdateQuality(new IncreaseItem {Name = "Aged Brie", SellIn = DefaultSellIn, Quality = 50});
             Assert.Equal(50, item.Quality);
         }
+
 
         [Fact]
         public void QualityOfBackstagePassesOutsideOfTenDays()
         {
-            var item = UpdateQuality("Backstage passes to a TAFKAL80ETC concert", 11);
+            var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 11, Quality = DefaultQuality});
             Assert.Equal(DefaultQuality + 1, item.Quality);
         }
+
 
         [Fact]
         public void QualityOfBackstagePassesInsideOfTenDays()
         {
-            var item = UpdateQuality("Backstage passes to a TAFKAL80ETC concert");
+            var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = DefaultSellIn, Quality = DefaultQuality});
             Assert.Equal(DefaultQuality + 2, item.Quality);
         }
 
         [Fact]
         public void QualityOfBackstagePassesInsideOfFiveDays()
         {
-            var item = UpdateQuality("Backstage passes to a TAFKAL80ETC concert", 5);
+            var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = DefaultQuality});
             Assert.Equal(DefaultQuality + 3, item.Quality);
         }
 
         [Fact]
         public void QualityOfBackstagePassesAfterTheConcertDate()
         {
-            var item = UpdateQuality("Backstage passes to a TAFKAL80ETC concert", 0);
+            var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = DefaultQuality});
             Assert.Equal(0, item.Quality);
         }
     }
