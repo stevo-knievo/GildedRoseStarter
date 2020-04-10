@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using GildedRoseKata.Items;
 using Xunit;
@@ -89,10 +89,24 @@ namespace GildedRoseKata
         }
 
         [Fact]
+        public void QualityOfBackstagePassesInsideOfTenDaysShouldNeverBeMoreThenFifty()
+        {
+            var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = DefaultSellIn, Quality = 49});
+            Assert.Equal(50, item.Quality);
+        }
+
+        [Fact]
         public void QualityOfBackstagePassesInsideOfFiveDays()
         {
             var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = DefaultQuality});
             Assert.Equal(DefaultQuality + 3, item.Quality);
+        }
+
+        [Fact]
+        public void QualityOfBackstagePassesInsideOfFiveDaysShouldNeverBeMoreThenFifty()
+        {
+            var item = UpdateQuality(new ConcertItems {Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 49});
+            Assert.Equal(50, item.Quality);
         }
 
         [Fact]
