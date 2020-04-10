@@ -60,42 +60,42 @@ namespace GildedRoseKata
         [Fact]
         public void IncreasesQualityGivenAgedBrie()
         {
-            var item = UpdateQuality(name: "Aged Brie");
+            var item = UpdateQuality("Aged Brie");
             Assert.Equal(DefaultQuality + 1, item.Quality);
         }
 
         [Fact]
         public void QualityShouldBeNeverMoreThanFifty()
         {
-            var item = UpdateQuality(name: "Aged Brie", quality: 50);
+            var item = UpdateQuality("Aged Brie", quality: 50);
             Assert.Equal(50, item.Quality);
         }
 
         [Fact]
         public void QualityOfBackstagePassesOutsideOfTenDays()
         {
-            var item = UpdateQuality(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 11);
+            var item = UpdateQuality("Backstage passes to a TAFKAL80ETC concert", 11);
             Assert.Equal(DefaultQuality + 1, item.Quality);
         }
 
         [Fact]
         public void QualityOfBackstagePassesInsideOfTenDays()
         {
-            var item = UpdateQuality(name: "Backstage passes to a TAFKAL80ETC concert");
+            var item = UpdateQuality("Backstage passes to a TAFKAL80ETC concert");
             Assert.Equal(DefaultQuality + 2, item.Quality);
         }
 
         [Fact]
         public void QualityOfBackstagePassesInsideOfFiveDays()
         {
-            var item = UpdateQuality(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 5);
+            var item = UpdateQuality("Backstage passes to a TAFKAL80ETC concert", 5);
             Assert.Equal(DefaultQuality + 3, item.Quality);
         }
 
         [Fact]
         public void QualityOfBackstagePassesAfterTheConcertDate()
         {
-            var item = UpdateQuality(name: "Backstage passes to a TAFKAL80ETC concert", sellIn: 0);
+            var item = UpdateQuality("Backstage passes to a TAFKAL80ETC concert", 0);
             Assert.Equal(0, item.Quality);
         }
     }
