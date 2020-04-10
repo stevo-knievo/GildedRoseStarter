@@ -25,7 +25,9 @@ namespace GildedRoseKata
         public void DoNothingGivenSulfuras()
         {
             var items = UpdateQuality(name: "Sulfuras, Hand of Ragnaros");
-            Assert.Equal(DefaultQuality, items.First().Quality);
+            var item = items.First();
+            Assert.Equal(DefaultSellIn, item.SellIn);
+            Assert.Equal(DefaultQuality, item.Quality);
         }
 
         [Fact]
