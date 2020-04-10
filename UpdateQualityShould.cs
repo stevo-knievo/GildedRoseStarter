@@ -9,7 +9,7 @@ namespace GildedRoseKata
 {
     public class UpdateQualityShould
     {
-        private IEnumerable<Item> UpdateQuality(string name = "Sulfuras, Hand of Ragnaros", int sellIn = 0, int quality = 80)
+        private static IEnumerable<Item> UpdateQuality(string name = "Sulfuras, Hand of Ragnaros", int sellIn = 0, int quality = 80)
         {
             var items = new List<Item> {new Item {Name = name, SellIn = sellIn, Quality = quality}};
             var gildedRose = new GildedRose(items);
