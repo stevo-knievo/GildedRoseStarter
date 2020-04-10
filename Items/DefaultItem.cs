@@ -1,3 +1,5 @@
+using System;
+
 namespace GildedRoseKata.Items
 {
     public abstract class DefaultItem : Item
@@ -11,7 +13,13 @@ namespace GildedRoseKata.Items
 
         protected void SetQuality(int incremental)
         {
+            if (Name.Contains("conjured", StringComparison.OrdinalIgnoreCase))
+            {
+                incremental *= 2;
+            }
+
             Quality += incremental;
+
 
             if (Quality > 50)
             {

@@ -123,5 +123,13 @@ namespace GildedRoseKata
             Assert.Equal(0, item.Quality);
             Assert.Equal(-1, item.SellIn);
         }
+
+        [Fact]
+        public void QualityOfConjuredItems()
+        {
+            var item = UpdateQuality(new StandardItem {Name = "Conjured Mana Cake", SellIn = DefaultSellIn, Quality = DefaultQuality});
+            Assert.Equal(DefaultQuality - 2, item.Quality);
+            Assert.Equal(DefaultSellIn - 1, item.SellIn);
+        }
     }
 }
